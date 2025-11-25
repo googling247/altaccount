@@ -2,9 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>My site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lunara Hub</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #e0e0ff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin: 0 0 16px 0;
+            font-weight: 600;
+            background: linear-gradient(90deg, #a29bfe, #74b9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin: 0 0 32px 0;
+            color: #b0b0ff;
+        }
+
+        .discord-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: #5865F2;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+        }
+
+        .discord-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.6);
+            background: #4752c4;
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #7777bb;
+        }
+    </style>
 </head>
 <body>
-    <h1>WIP</h1>
+    <div class="container">
+        <h1>Lunara Hub</h1>
+        <p>Lunara Hub is yet to be released!<br>Please join the Discord for a notification when it releases!</p>
+        <a href="https://discord.gg/VFPbjAgusH" target="_blank" class="discord-btn">
+            Join Discord
+        </a>
+        <footer>Stay tuned — something awesome is coming soon.</footer>
+    </div>
 </body>
 </html>
