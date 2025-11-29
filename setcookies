@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Setting Cookies...</title>
+  <script>
+    // Parse the query string
+    const params = new URLSearchParams(window.location.search);
+
+    // Set each query param as a cookie
+    for (const [key, value] of params.entries()) {
+      document.cookie = `${key}=${encodeURIComponent(value)}; path=/; max-age=${60*60*24}`; // 1 day
+    }
+
+    // Optional: you could also store in localStorage if you prefer
+    // for (const [key, value] of params.entries()) {
+    //   localStorage.setItem(key, value);
+    // }
+
+    // Redirect to your main developers page after setting cookies
+    window.location.href = '/developers';
+  </script>
+</head>
+<body>
+  <p>Logging you in…</p>
+</body>
+</html>
