@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Developer Dashboard</title>
+<style>
+    body {
+        background-color: #1e1e1e;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        position: relative;
+    }
+
+    .container {
+        background-color: #2a2a2a;
+        padding: 40px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+        margin-bottom: 20px;
+    }
+
+    button {
+        padding: 12px 24px;
+        background-color: #5865F2;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.2s;
+        margin: 5px;
+    }
+
+    button:hover {
+        background-color: #4752c4;
+    }
+
+    .logout-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 12px 24px;
+        background-color: #5865F2;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .logout-button:hover {
+        background-color: #4752C4;
+    }
+
+    #username {
+        color: #ffcc00;
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.7);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 1000;
+    }
+
+    .modal.show {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .modal-content {
+        background-color: #2a2a2a;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        position: relative;
+        width: 300px;
+        max-width: 90%;
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+    }
+
+    .modal.show .modal-content {
+        transform: scale(1);
+    }
+
+    .modal-content h2 {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .modal-content p {
+        margin-bottom: 20px;
+        font-size: 14px;
+        color: #ccc;
+    }
+
+    .modal-content input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        border: 1px solid #444;
+        font-size: 14px;
+        background-color: #1e1e1e;
+        color: #fff;
+        box-sizing: border-box;
+    }
+
+    .modal-content button {
+        width: 100%;
+        padding: 10px;
+        background-color: #5865F2;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .modal-content button:hover {
+        background-color: #4752C4;
+    }
+
+    .close-modal {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 20px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .close-modal:hover {
+        color: #ff4d4d;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome, <span id="username">Loading...</span>!</h1>
+    <button id="update-btn">Update Roblox Account</button>
+</div>
+
+<button class="logout-button" id="logout">Logout</button>
+
+<!-- Modal -->
+<div class="modal" id="username-modal">
+    <div class="modal-content">
+        <span class="close-modal" id="close-modal">&times;</span>
+        <h2>Edit Roblox Username</h2>
+        <p>Put in your Roblox username to use Lunara in game!</p>
+        <input type="text" id="roblox-username" placeholder="Enter your Roblox username">
+        <button id="confirm-username">Confirm</button>
+    </div>
+</div>
+
+<script>
+async function fetchUser() {
+    try {
+        const res = await fetch('http://144.48.39.23:4343/api/me');
+        const data = await res.json();
+
+        if (data.username) {
+            document.getElementById('username').textContent = data.username;
+        } else {
+            document.getElementById('username').textContent = 'Unknown';
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+document.getElementById('logout').addEventListener('click', () => {
+    document.location = "/logout";
+});
+
+// Modal logic
+const modal = document.getElementById('username-modal');
+const updateBtn = document.getElementById('update-btn');
+const closeModal = document.getElementById('close-modal');
+const confirmBtn = document.getElementById('confirm-username');
+const usernameInput = document.getElementById('roblox-username');
+
+updateBtn.addEventListener('click', () => {
+    modal.classList.add('show');
+    usernameInput.focus(); // auto-focus input
+});
+
+closeModal.addEventListener('click', () => {
+    modal.classList.remove('show');
+});
+
+window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.classList.remove('show');
+    }
+});
+
+confirmBtn.addEventListener('click', () => {
+    const username = usernameInput.value.trim();
+    if(username) {
+        <!-- alert(`Roblox username set to: ${username}`); -->
+        modal.classList.remove('show');
+        document.getElementById('username').textContent = username;
+        // send to backend if needed
+        fetch('http://144.48.39.23:4343/api/set-username', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: username })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                alert('Roblox username updated!');
+            } else {
+                alert('Error: ' + data.error);
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Failed to update username');
+        });
+
+    } else {
+        alert('Please enter a username!');
+    }
+});
+
+fetchUser();
+</script>
+</body>
+</html>
