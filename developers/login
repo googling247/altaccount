@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Developer Login</title>
+    <style>
+        body {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 40px;
+            font-family: Arial, sans-serif;
+        }
+
+        .box {
+            max-width: 400px;
+            margin: auto;
+            text-align: center;
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #444;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        a.discord-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #5865F2;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        a.discord-btn:hover {
+            background: #4752c4;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Developer Login</h1>
+        <p>Sign in using your Discord account.</p>
+        <a href="http://144.48.39.23:4343/api/auth/discord" class="discord-btn">Login with Discord</a>
+    </div>
+</body>
+</html>
